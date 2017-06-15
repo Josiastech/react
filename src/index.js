@@ -10,20 +10,21 @@ import { render } from 'react-dom';
 // Imports our two components that render children....
 import MySection from './MySection';
 import MyButton from './MyButton';
+import MyComponent from './MyComponent';
 
 /**
  * Render the JSX markup. Notice the XML syntax
  * mixed with JS? Thi is replaced y the 
  * transpiler before it reached the browser.
  */
-render(
+/*render(
     (<p>Hello, <strong>JSX</strong></p>),
     document.getElementById('root')
-)
+)*/
 
 // "MyComponent" extends "Component", which means that 
 // we can now use it in JSX markup
-class MyComponent extends Component {
+/*class MyComponent extends Component {
     render(){
         return (
             <section>
@@ -32,7 +33,7 @@ class MyComponent extends Component {
             </section>
         )
     }
-}
+}*/
 
 render(
     //<MyComponent></MyComponent>,
@@ -40,4 +41,12 @@ render(
         <MyButton>My Button Text</MyButton>
     </MySection>,
     document.getElementById('app')
+);
+
+render(
+    <MyComponent>
+        <MyComponent.First />
+        <MyComponent.Second />
+    </MyComponent>,
+    document.getElementById('root')
 );
