@@ -4,7 +4,7 @@
  * object isn't explicitly used here, but it's used
  * by the transpiled JSX sorce.
  */
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 /**
@@ -12,7 +12,25 @@ import { render } from 'react-dom';
  * mixed with JS? Thi is replaced y the 
  * transpiler before it reached the browser.
  */
-reder(
+render(
     (<p>Hello, <strong>JSX</strong></p>),
-    document.getElementById('app')
+    document.getElementById('root')
 )
+
+// "MyComponent" extends "Component", which means that 
+// we can now use it in JSX markup
+class MyComponent extends Component {
+    render(){
+        return (
+            <section>
+                <h1>My Component</h1>
+                <p>Content in my Component</p>
+            </section>
+        )
+    }
+}
+
+render(
+    <MyComponent />,
+    document.getElementById('app')
+);
