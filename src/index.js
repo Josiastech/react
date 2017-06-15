@@ -12,6 +12,11 @@ import MySection from './MySection';
 import MyButton from './MyButton';
 import MyComponent from './MyComponent';
 
+const enabled = true;
+const text = 'A button';
+const placeholder = 'input value...';
+const size = 50;
+
 /**
  * Render the JSX markup. Notice the XML syntax
  * mixed with JS? Thi is replaced y the 
@@ -50,3 +55,16 @@ render(
     </MyComponent>,
     document.getElementById('root')
 );
+
+// We're rendering a "<button>" and an "<input>" 
+// element, both of which use the "{}" JavaScript 
+// expression syntax to fill in property, and text 
+// values.
+render(( 
+  <section> 
+    <button disabled={!enabled}>{text}</button> 
+    <input placeholder={placeholder} size={size} /> 
+  </section> 
+  ), 
+  document.getElementById('expression') 
+); 
