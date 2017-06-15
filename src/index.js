@@ -7,6 +7,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
 
+// Imports our two components that render children....
+import MySection from './MySection';
+import MyButton from './MyButton';
+
 /**
  * Render the JSX markup. Notice the XML syntax
  * mixed with JS? Thi is replaced y the 
@@ -31,6 +35,9 @@ class MyComponent extends Component {
 }
 
 render(
-    <MyComponent />,
+    //<MyComponent></MyComponent>,
+    <MySection>
+        <MyButton>My Button Text</MyButton>
+    </MySection>,
     document.getElementById('app')
 );
