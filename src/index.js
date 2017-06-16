@@ -13,6 +13,7 @@ import MyButton from './MyButton';
 import MyComponent from './MyComponent';
 import State from './State'
 import ComponentState from './ComponentState';
+import Counter from './Counter'
 
 const enabled = true;
 const text = 'A button';
@@ -139,3 +140,25 @@ setTimeout(() => {
         content: 'Done!', 
     });
 }, 3000);
+
+// Store a refernece to the render component...
+const counter = render(
+    (<Counter />),
+    document.getElementById('counter')
+)
+
+//  change part of the sate after 1 second...
+setTimeout( () => {
+    counter.setState({
+        first: 'done!'
+    });
+}, 1000);
+
+setTimeout(()=>{
+    counter.setState({ second: 'done!' });
+}, 2000);
+
+// Change another part of the state after 3 seconds... 
+setTimeout(() => {
+    counter.setState({ third: 'done!' }); 
+}, 3000); 
