@@ -11,7 +11,7 @@ import { render } from 'react-dom';
 import MySection from './MySection';
 import MyButton from './MyButton';
 import MyComponent from './MyComponent';
-
+import State from './State'
 const enabled = true;
 const text = 'A button';
 const placeholder = 'input value...';
@@ -111,4 +111,10 @@ render ((
          </ul>
     </section>),
     document.getElementById('expression')
+);
+
+
+render ( 
+    (<State />),
+    document.getElementById('state')
 );
