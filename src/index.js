@@ -5,7 +5,8 @@
  * by the transpiled JSX sorce.
  */
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+//import { render } from 'react-dom';
+import { render as renderJSX } from 'react-dom'; 
 
 // Imports our two components that render children....
 import MySection from './MySection';
@@ -14,6 +15,12 @@ import MyComponent from './MyComponent';
 import State from './State'
 import ComponentState from './ComponentState';
 import Counter from './Counter'
+import Properties from './Properties';
+
+// The two components we're to passing props to 
+// when they're rendered. 
+import MyButton2 from './MyButton'; 
+import MyList from './MyList'; 
 
 const enabled = true;
 const text = 'A button';
@@ -58,107 +65,55 @@ const object = {
         )
     }
 }*/
-
-render(
-    //<MyComponent></MyComponent>,
-    <MySection>
-        <MyButton>My Button Text</MyButton>
-    </MySection>,
-    document.getElementById('app')
-);
-
-render(
-    <MyComponent>
-        <MyComponent.First />
-        <MyComponent.Second />
-    </MyComponent>,
-    document.getElementById('root')
-);
-
-// We're rendering a "<button>" and an "<input>" 
-// element, both of which use the "{}" JavaScript 
-// expression syntax to fill in property, and text 
-// values.
-/*render(( 
-  <section> 
-    <button disabled={!enabled}>{text}</button> 
-    <input placeholder={placeholder} size={size} /> 
-  </section> 
-  ), 
-  document.getElementById('expression') 
-); */
-
-
-render ((
-    <section>
-        <h1>Array</h1>
-        { /* Maps "array" to an array of "<li>"s. 
-         Note the "key" property on "<li>". 
-         This is necessary for performance reasons, 
-         and React will warn us if it's missing. */ } 
-         <ul>
-             {array.map (i=>(
-                 <li key={i}>{i}</li>
-             ))}
-         </ul>
-         { /* Maps "object" to an array of "<li>"s. 
-         Note that we have to use "Object.keys()" 
-         before calling "map()" and that we have 
-         to lookup the value using the key "i". */ } 
-         <ul>
-             {Object.keys(object).map(i=>(
-                 <li key={i}> 
-                    <strong>{i}: </strong>{object[i]} 
-                </li> 
-             ))}
-         </ul>
-    </section>),
-    document.getElementById('expression')
-);
-
-
-render ( 
-    (<State />),
-    document.getElementById('state')
-);
-
-// The "render()" function returns a reference to the 
-// rendered component. In this case, it's an instance 
-// of "MyComponent". Now that we have the reference, 
-// we can call "setState()" on it whenever we want. 
-const componentState = render(
-    (<ComponentState />),
-    document.getElementById('state2')
-);
-
-
-// After 2 seconds, set the state of "componentState",
-// which causes it to re-render itself
-setTimeout(() => {
-    componentState.setState({
-        heading: 'React Awesomesauce', 
-        content: 'Done!', 
-    });
-}, 3000);
-
-// Store a refernece to the render component...
-const counter = render(
-    (<Counter />),
-    document.getElementById('counter')
-)
-
-//  change part of the sate after 1 second...
-setTimeout( () => {
-    counter.setState({
-        first: 'done!'
-    });
-}, 1000);
-
-setTimeout(()=>{
-    counter.setState({ second: 'done!' });
-}, 2000);
-
-// Change another part of the state after 3 seconds... 
-setTimeout(() => {
-    counter.setState({ third: 'done!' }); 
-}, 3000); 
+ 
+// This is the "application state". This data changes 
+// over time, and we can pass the application data to 
+// components as properties. 
+const appState = { 
+  text: 'My Button', 
+  disabled: true, 
+  items: [ 
+    'First', 
+    'Second', 
+    'Third', 
+  ], 
+}; 
+ 
+// Defines our own "render()" function. The "renderJSX()" 
+// function is from "react-dom" and does the actual 
+// rendering. The reason we're creating our own "render()" 
+// function is that it contains the JSX that we want to 
+// render, and so we can call it whenever there's new 
+// application data. 
+function render(props) { 
+  renderJSX(( 
+    <main> 
+      { /* The "MyButton" component relies on the "text" 
+           and the "disabed" property. The "text" property 
+           is a string while the "disabled" property is a 
+           boolean. */ } 
+      <MyButton2
+        text={props.text} 
+        disabled={props.disabled} 
+      /> 
+ 
+      { /* The "MyList" component relies on the "items" 
+           property, which is an array. Any valid 
+           JavaScript data can be passed as a property. */ } 
+      <MyList items={props.items} /> 
+    </main> 
+    ), 
+    document.getElementById('app2') 
+  ); 
+} 
+ 
+// Performs the initial rendering... 
+render(appState); 
+ 
+// After 1 second, changes some application data, then 
+// calls "render()" to re-render the entire structure. 
+setTimeout(() => { 
+  appState.disabled = false; 
+  appState.items.push('Fourth'); 
+  render(appState); 
+}, 1000); 
