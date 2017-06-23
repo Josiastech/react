@@ -1,15 +1,15 @@
-import React from 'react'; 
-import { render as renderJSX } from 'react-dom'; 
- 
+import React from 'react';
+import { render } from 'react-dom';
+
 // "MyButton" is a function, instead of a 
 // "Component" subclass. 
-import MyButton from './function'; 
- 
+import MyButton from './function';
+import MyContainer from './MyContainer';
 // Renders two "MyButton" components. We only need 
 // the "first" and "second" properties from the 
 // props argument by destructuring it. 
-function render({ first, second }) { 
-  renderJSX(( 
+/*function render({ first, second }) { 
+ renderJSX(( 
     <main> 
       <MyButton 
         text={first.text} 
@@ -36,3 +36,8 @@ render({
     disabled: true, 
   }, 
 });
+*/
+render(
+    ( < MyContainer / > ),
+    document.getElementById('app')
+)
